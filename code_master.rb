@@ -3,8 +3,8 @@ class CodeMaster
 	attr_reader :code
 
 
-	def initialize(code)
-		# @code = code
+	def initialize(name, code)
+		@code = code
 		@name = name
 	end
 
@@ -12,4 +12,9 @@ class CodeMaster
 		return "Goodbye"
 	end
 
+	def display
+		puts @name, @code, "In code_master"
+	end
+
 end
+

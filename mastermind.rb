@@ -1,26 +1,35 @@
 class Game
-	attr_accessor :code_master, :code_breaker, :play
+	attr_accessor :master, :code_breaker, :play, :code
 	require "./mastermind_board.rb"
 	require "./code_breaker.rb"
 	require "./code_master.rb"
 	
 
 
-	def initialize(code_master, code_breaker)
-		@@code_master = CodeMaster.new(code_master)
+	def initialize(master, code, code_breaker)
+		# @@code_master
+		@@master = CodeMaster.new(master, code)
 		@@code_breaker = CodeBreaker.new(code_breaker)
 		@@board = Board.new
 	end
 
 	def display
-		puts @@board.display_board
+		@@board.display_board
 		puts ""
-		puts @@code_master.base_code
+		puts @@master.display
 		puts @@code_breaker.compare_code
 	end
 
 end
 
 
-play = Game.new("Chris", "Bry")
+
+
+puts "Give me your name."
+name = gets.chomp
+puts "Give me four numbers under 9."
+code = gets.chomp.to_i
+
+play = Game.new(name, code, "Bry")
 play.display
+# name = CodeMaster.new(name, code)
