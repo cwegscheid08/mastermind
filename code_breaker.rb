@@ -1,4 +1,4 @@
-class CodeBreaker
+class CodeBreaker 
 	attr_accessor :name, :code
 	
 
