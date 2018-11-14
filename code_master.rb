@@ -13,7 +13,7 @@ class CodeMaster
 	end
 
 	def display
-		puts @name, @code, "In code_master"
+		print @name, " ", @code, " ", "In code_master\n" 
 	end
 
 end

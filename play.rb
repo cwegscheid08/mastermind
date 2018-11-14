@@ -1,6 +1,6 @@
 class Game
 	attr_accessor :master, :code_breaker, :play, :code
-	require "./mastermind_board.rb"
+	require "./board.rb"
 	require "./code_breaker.rb"
 	require "./code_master.rb"
 	
@@ -20,6 +20,10 @@ class Game
 		puts @@code_breaker.compare_code
 	end
 
+	def play
+		self.display
+	end
+
 end
 
 
@@ -30,6 +34,5 @@ name = gets.chomp
 puts "Give me four numbers under 9."
 code = gets.chomp.to_i
 
-play = Game.new(name, code, "Bry")
-play.display
-# name = CodeMaster.new(name, code)
+new_game = Game.new(name, code, "Bry")
+new_game.play
