@@ -24,14 +24,65 @@ class CodeMaster
 		print @master, " ", @code, " ", "In code_master\n" 
 	end
 
+	def is_there?(guess)
+		load './methods.rb'
+		counter = 0
 
-	def compare_code(guess)
-		# print guess, "\n", @code, "\n"
-		guess.each do |b_clr|
-			print @code.any? { |m_clr| m_clr == b_clr }
+		guess.each do |x| 
+			if [x].any_colors?(@code)
+				counter += 1
+			else
+				" "
+			end
 		end
-		puts ""
+		# print "You got #{counter} colors right,"
+		return counter
 	end
+
+	def is_in_place?(guess)
+		load './methods.rb'
+		counter = 0
+
+		guess.each_with_index do |clr, i|
+			if [clr, i].color_in_spot?(@code) 
+				# print "#{clr}'s good spot." 
+				counter += 1
+			else
+				 " "
+			end
+		end
+		# print "#{counter} colors are in the right spot."
+		return counter
+	end
+
+
+	# def compare_code(guess)
+	# 	load './methods.rb'
+	# 	counter = 0
+
+	# 	guess.each do |x| 
+	# 		if [x].any_colors?(@code)
+	# 			counter += 1
+	# 		else
+	# 			" "
+	# 		end
+	# 	end
+
+	# 	print "You got #{counter} colors right,"
+	# 	counter = 0
+	# 	print " and "
+
+	# 	guess.each_with_index do |clr, i|
+	# 		if [clr, i].color_in_spot?(@code) 
+	# 			# print "#{clr}'s good spot." 
+	# 			counter += 1
+	# 		else
+	# 			 " "
+	# 		end
+	# 	end
+
+	# 	print "#{counter} colors are in the right spot."
+	# end
 
 
 

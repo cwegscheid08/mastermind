@@ -27,7 +27,10 @@ class Game
 	end
 
 	def run_round
-		@@master.compare_code(breaker_guess)
+		guess = breaker_guess
+		@board.update_board(@@master.is_there?(guess))
+		@board.update_board(@@master.is_in_place?(guess))
+		# @board.update_display
 	end
 
 
@@ -43,9 +46,7 @@ class Game
 		puts ""
 		puts @@master
 		@@master.display
-		# puts @@color_box
-		# puts @@code_breaker.compare_code
-		# puts [1,2,3].rand_under_6.to_s
+
 	end
 
 	def play

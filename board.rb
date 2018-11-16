@@ -1,8 +1,9 @@
 class Board
-	attr_accessor :board, :row
+	attr_accessor :board, :row, :switch
 
 	def initialize
 		@board = build_board
+		@switch = false
 	end
 
 	def build_board
@@ -28,6 +29,23 @@ class Board
 		end
 
 		@board
+	end
+
+	def update_board count
+		print "\n", count
+		
+		if @switch == true
+			@row["R Place"] = count
+			@switch = false
+		else
+			@row["R Guess"] = count
+			@switch = true
+		end
+
+		display_board
+
+		# switch ? @row["R Place"] = count, switch = true : @row["R Guess"] = count, switch = true
+		# @row["R Guess"] = count
 	end
 
 	def display_board
