@@ -1,5 +1,5 @@
 class Game
-	attr_accessor :master, :code_breaker, :play, :code, :colors_box
+	attr_accessor :master, :code_breaker, :play, :code, :colors_box, :round
 	require "./code_master.rb"
 	require "./code_breaker.rb"
 	require "./board.rb"
@@ -12,8 +12,8 @@ class Game
 		@@color_box = color
 		@@master = CodeMaster.new(master, code, @@color_box)
 		@code_breaker = CodeBreaker.new(code_breaker)
-		@board = Board.new
-		
+		@round = 1
+		@board = Board.new(@round)
 	end
 
 	def color
@@ -21,16 +21,24 @@ class Game
 	end
 
 	def breaker_guess
-		print @@color_box.join(", "), "\n"
+		print @@color_box.join("-"), "\n"
 		puts "Give me 4 colors."
 		return guess = gets.chomp.split(" ")
 	end
 
 	def run_round
-		guess = breaker_guess
-		@board.update_board(@@master.is_there?(guess))
-		@board.update_board(@@master.is_in_place?(guess))
-		# @board.update_display
+		until @round >= 3
+			guess = breaker_guess
+			@board.update_round(@round)
+			@board.update_board(@@master.is_there?(guess))
+			@board.update_board(@@master.is_in_place?(guess))
+			@board.update_board(guess)
+
+
+			@board.display_board
+			@round += 1
+			
+		end
 	end
 
 
@@ -43,9 +51,9 @@ class Game
 		# load "./methods.rb"
 
 		@board.display_board
-		puts ""
-		puts @@master
-		@@master.display
+		# puts ""
+		# puts @@master
+		# @@master.display
 
 	end
 

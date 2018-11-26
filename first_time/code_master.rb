@@ -20,9 +20,9 @@ class CodeMaster
 		return code.rand_under_6
 	end
 
-	def display
-		print @master, " ", @code, " ", "In code_master\n" 
-	end
+	# def display
+	# 	print @master, " ", @code, " ", "In code_master\n" 
+	# end
 
 	def is_there?(guess)
 		load './methods.rb'
