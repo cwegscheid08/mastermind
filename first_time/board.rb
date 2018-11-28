@@ -25,23 +25,9 @@ class Board
 			i += 1
 		end
 
+		@board["ROUND:#{@round}"] = @row
+
 		
-		# if @round == 1 
-		# 	update_board([" ", " ", " ", " "]) 
-		# else
-		# 	""
-		# end
-
-		@board[@round] = @row
-
-		# @round.times do |x|
-		# 	@board[@round] = @row
-		# end
-
-		# 10.times do |x|
-		# 	@board[x+1] = @row
-		# end
-
 		@board
 	end
 
@@ -54,16 +40,19 @@ class Board
 		# print "\n", x, "\n", @round, "\n", @row, "\n", @board[@round][1], "\n", @board[1]["R Guess"]
 		# puts ""
 		# puts x.class == Integer
-		print "Here's the round:#{@round}- Here's the board: #{@board}.\n"
+		# print "Here's the round:#{@round}- Here's the board: #{@board}.\n"
 
 		if x.class != Integer
 			# r = @board[round]
 			# print "#{r[1]}.\n"
+			puts "HERE'S X: #{x.to_s}, ROUND: #{@round}"
 			i = 1
-			# x.each { |clr| @row[i] = clr; i += 1}
-			# puts x, "\n", x.each { |a| a }
-			print @round, i
-			x.each { |clr| (print clr, @board[@round][i], i, @round; @board[@round][i] = clr; i += 1) }
+			working = @board
+			x.each { |clr| @row[i] = clr; i += 1}
+			# x.each { |clr| (@board[@round][i] = clr; i += 1)}
+			working.each { |r| puts "WORKING:#{r}\nBOARD:#{@board} "}
+			@board[@round] = @board
+			puts @board
 			i = 1
 		else
 			if @switch == true
@@ -79,6 +68,9 @@ class Board
 
 
 	def display_board
+
+		puts @board
+
 		@board.each do |x| 
 			x = x[1]
 			# print "#{x}\n" 
