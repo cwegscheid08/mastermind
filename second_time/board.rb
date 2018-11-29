@@ -4,8 +4,8 @@ class Board
 
 	def initialize
 		# @@round
+		@board = {}
 		set_row()
-		set_board()
 	end
 
 
@@ -16,30 +16,24 @@ class Board
 		puts @board
 	end
 
-
-	def add_row
-
-	end
-
-	def set_row
-		@row = { guessed_right: 0, "1": " ", "2": " ", "3": " ", "4": " ", correct_spot: 0 }
-		# begin
-		# 	@row = { guessed_right: 0, "1": " ", "2": " ", "3": " ", "4": " ", correct_spot: 0 }
-		# rescue StandardError=>e
-		# 	puts "ERROR: #{e}"
-		# end
+	def set_row(guess = " ", count = 0, location = 0)
+		# puts "GUESS: #{guess}"
+		if guess == " "
+			@row = { guessed_right: count, one: guess, two: guess, three: guess, four: guess, correct_spot: location }
+		else
+			@row = { guessed_right: count, one: guess[0], two: guess[1], three: guess[2], four: guess[3], correct_spot: location }
+		end
+		# puts "ROW: #{@row}"
+		set_board(@row)
 	end
 
 
-	def set_board
-		@board = {round_1: @row}
-		# begin
-		# 	@board = {"round_1" => @row}
-		# rescue StandardError=>e
-		# 	puts "ERROR: #{e}"
-		# end
+	def set_board(row)
+		puts "ROW: #{row}"
+		# @board = {round_1: row}
+		@board[:round_1] = row
+		puts "BOARD: #{board}"
 	end
-
 
 	def display_board
 		puts @board

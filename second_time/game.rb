@@ -16,9 +16,9 @@ class Game
 			x = get_breaker_info
 			@breaker = Breaker.new(x[0], x[1])
 		else
-			x = get_breaker_info
+			# x = get_breaker_info
 			@master = Master.new
-			@breaker = Breaker.new(x[0], x[1])
+			@breaker = Breaker.new(get_breaker_info)
 		end
 		run_round
 	end
@@ -35,9 +35,15 @@ class Game
 		@board
 	end
 
+	def round
+		@round
+	end
+
 	def run_round
-		@round += 1
-		turn()
+		while @round <= 1
+			@round += 1
+			turn()
+		end
 	end
 
 
@@ -45,8 +51,8 @@ class Game
 
 	def turn
 		guess = @breaker.guess
-		master.has_color?(guess)
-		master.right_spot(guess)
+		# puts "YOUR GUESS: #{guess}   RIGHT COLOR: #{master.has_color?(guess)}  RIGHT SPOT: #{master.right_spot(guess)}"
+		@board.set_row(guess, master.has_color?(guess), master.right_spot(guess))
 	end
 
 	def two_players?
@@ -65,9 +71,7 @@ class Game
 	def get_breaker_info
 		puts "What's your name?"
 		name = gets.chomp.downcase.capitalize
-		puts "Give me four colors."
-		code = gets.chomp.downcase.split(" ")
-		return [name, code]
+		return name
 	end
 
 end

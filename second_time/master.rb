@@ -34,11 +34,17 @@ class Master < Player
 	private
 
 	def check_color(guess)
-		guess.each { |x| puts @code.any?(x)}
+		i = 0
+		guess.each { |x| @code.any?(x) ? i += 1 : i }
+		i
 	end
 
 	def check_spot(guess)
-
+		i = 0
+		guess.each_with_index do |x, index|
+			@code[index] == x ? i += 1 : i
+		end
+		i
 	end
 
 	def randomize(code)
