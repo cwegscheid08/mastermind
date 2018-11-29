@@ -6,7 +6,12 @@ class Breaker < Player
 		@code = code
 	end
 
-	# def display_player
-	# 	super
-	# end
+	def guess
+		puts "Give me four colors."
+		code = gets.chomp.downcase.split(" ")
+		puts "GUESS: #{code}"
+	end
+
+
+
 end
