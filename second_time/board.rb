@@ -12,7 +12,7 @@ class Board
 
 
 
-	def display_board
+	def display
 		puts @board
 	end
 

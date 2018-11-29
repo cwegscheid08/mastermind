@@ -8,7 +8,7 @@ class Game
 
 
 	def initialize
-		@round = 1
+		@round = 0
 		@board = Board.new
 		if two_players?
 			x = get_master_info
@@ -36,12 +36,18 @@ class Game
 	end
 
 	def run_round
-		@breaker.guess
+		@round += 1
+		turn()
 	end
 
 
 	private
 
+	def turn
+		guess = @breaker.guess
+		master.has_color?(guess)
+		master.right_spot(guess)
+	end
 
 	def two_players?
 		puts "2 Player Mode: Y/N"
@@ -59,9 +65,8 @@ class Game
 	def get_breaker_info
 		puts "What's your name?"
 		name = gets.chomp.downcase.capitalize
-		puts "Give me four colors"
-		code = gets.chomp.downcase
-		puts "HERE: #{name}"
+		puts "Give me four colors."
+		code = gets.chomp.downcase.split(" ")
 		return [name, code]
 	end
 
