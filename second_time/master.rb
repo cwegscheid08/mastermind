@@ -28,6 +28,10 @@ class Master < Player
 		check_spot(guess)
 	end
 
+	def name
+		@name
+	end
+
 
 
 
