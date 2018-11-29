@@ -40,19 +40,19 @@ class Game
 	end
 
 	def run_round
-		while @round <= 1
+		# while @round <= 10
 			@round += 1
-			turn()
-		end
+			turn(@round)
+		# end
 	end
 
 
 	private
 
-	def turn
+	def turn(round)
 		guess = @breaker.guess
 		# puts "YOUR GUESS: #{guess}   RIGHT COLOR: #{master.has_color?(guess)}  RIGHT SPOT: #{master.right_spot(guess)}"
-		@board.set_row(guess, master.has_color?(guess), master.right_spot(guess))
+		@board.add_to_board(@board.set_row(guess, master.has_color?(guess), master.right_spot(guess)), round)
 	end
 
 	def two_players?
