@@ -2,10 +2,12 @@ class Breaker < Player
 	attr_accessor :name, :code, :color_box
 
 
-	def initialize(name)
-		@name = name
-		@code
-		@color_box = color_box
+	def initialize(name = "Computer", code = [0,0,0,0])
+		super(name, code)
+	end
+
+	def is_computer?
+		super
 	end
 
 	def color_box

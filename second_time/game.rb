@@ -10,17 +10,22 @@ class Game
 	def initialize
 		@round = 0
 		@board = Board.new
-		if two_players?
+		if game_style == "2p"
 			x = get_master_info
 			@master = Master.new(x[0], x[1])
-			# x = get_breaker_info
 			@breaker = Breaker.new(get_breaker_info)
+			run_round("two_players")
+		elsif game_style == "m"
+			x =  get_master_info
+			@master = Master.new(x[0],x[1])
+			@breaker = Breaker.new
+			run_round("master")
 		else
-			# x = get_breaker_info
 			@master = Master.new
 			@breaker = Breaker.new(get_breaker_info)
+			run_round("breaker")
 		end
-		run_round
+		# run_round
 	end
 
 	def master
@@ -35,11 +40,11 @@ class Game
 		@board
 	end
 
-	def round
-		@round
-	end
+	# def round
+	# 	@round
+	# end
 
-	def run_round
+	def run_round(game_style)
 		while @round <= 10
 			@round += 1
 			turn(@round)
@@ -58,16 +63,26 @@ class Game
 	end
 
 	def is_loss?
-		@round == 10 && (board.four_spots?(@round) == false) ? (@round = 11; loss = true; puts "\n#{master.name.upcase}'S CODE WAS #{master.get_master_code(loss).join("--").upcase}.\n\n~~YOU LOSE~~\n\n") : ""
+		if (@round == 10 && (board.four_spots?(@round) == false))
+			@round = 11 
+			loss = true 
+			puts "\n#{master.name.upcase}'S CODE WAS #{master.get_master_code(loss).join("--").upcase}\n\n~~YOU LOSE~~\n\n"
+		end
 	end
 
 	def is_win?(round)
 		board.four_spots?(round) ? (@round = 11; 3.times {puts "\n#{breaker.name.upcase} WINS!!!\n"}; puts "") : ""
 	end
 
-	def two_players?
+	def game_style
 		puts "2 Player Mode: Y/N"
-		return gets.chomp.downcase[0] == "y" ? true : false
+		# return gets.chomp.downcase[0] == "y" ? true : false
+		if gets.chomp.downcase[0] == "n"
+			puts "Would you like to be BREAKER or MASTER?"
+			return gets.chomp.downcase[0]
+		else
+			return "2p"
+		end
 	end
 
 	def get_master_info

@@ -1,17 +1,12 @@
 class Board
 	attr_accessor :board, :row
-	# attr_reader :round
+
 
 	def initialize
-		# @@round
 		@board = {}
 		set_row
 		build_board
 	end
-
-
-
-
 
 	def display
 		puts @board

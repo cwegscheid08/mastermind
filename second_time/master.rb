@@ -1,15 +1,13 @@
 class Master < Player
 	attr_accessor :name, :code, :color_box
 	
-	def initialize(name = "Computer", code = [0,0,0,0])	
-		@name = name
-		@code = code
-		@color_box = color_box
-		is_computer?()
+
+	def initialize(name = "Computer", code = [0,0,0,0])
+		super(name, code)
 	end
 
 	def is_computer?
-		@name == "Computer" ? @code = randomize(@code) : ""
+		super
 	end
 
 	def color_box
