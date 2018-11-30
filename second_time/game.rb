@@ -10,12 +10,13 @@ class Game
 	def initialize
 		@round = 0
 		@board = Board.new
-		if game_style == "2p"
+		type = game_style?
+		if type == "2p"
 			x = get_master_info
 			@master = Master.new(x[0], x[1])
 			@breaker = Breaker.new(get_breaker_info)
 			run_round("two_players")
-		elsif game_style == "m"
+		elsif type == "m"
 			x =  get_master_info
 			@master = Master.new(x[0],x[1])
 			@breaker = Breaker.new
@@ -45,18 +46,37 @@ class Game
 	# end
 
 	def run_round(game_style)
-		while @round <= 10
-			@round += 1
-			turn(@round)
-			is_win?(@round)
-			is_loss?
+		case game_style
+			when "breaker", "two_players"
+				while @round <= 10
+					@round += 1
+					breaker_turn(@round)
+					is_win?(@round)
+					is_loss?	
+				end
+			when "master"
+				while @round <= 10
+					@round += 1
+					master_turn(@round)
+					is_win?(@round)
+					is_loss?
+				end
+			else
+				puts "ERROR!!!!"
 		end
 	end
 
 
 	private
 
-	def turn(round)
+
+	def master_turn(round)
+		computer_guess = @breaker.computer_guess(round)
+		@board.add_to_board(@board.set_row(computer_guess, master.has_color?(computer_guess), master.right_spot(computer_guess)), round)
+		@board.display
+	end
+
+	def breaker_turn(round)
 		guess = @breaker.guess(round)
 		@board.add_to_board(@board.set_row(guess, master.has_color?(guess), master.right_spot(guess)), round)
 		@board.display
@@ -74,7 +94,7 @@ class Game
 		board.four_spots?(round) ? (@round = 11; 3.times {puts "\n#{breaker.name.upcase} WINS!!!\n"}; puts "") : ""
 	end
 
-	def game_style
+	def game_style?
 		puts "2 Player Mode: Y/N"
 		# return gets.chomp.downcase[0] == "y" ? true : false
 		if gets.chomp.downcase[0] == "n"

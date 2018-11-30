@@ -53,11 +53,11 @@ class Master < Player
 		i
 	end
 
-	def randomize(code)
-		code.each_with_index do |x, i|
-			code[i] = @color_box[rand(6)]
-		end
-		code
-	end
+	# def randomize(code)
+	# 	code.each_with_index do |x, i|
+	# 		code[i] = @color_box[rand(6)]
+	# 	end
+	# 	code
+	# end
 
 end

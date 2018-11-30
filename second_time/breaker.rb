@@ -20,8 +20,21 @@ class Breaker < Player
 		return @code
 	end
 
+	def computer_guess(round)
+		puts "\nTHE COMPUTER IS THINKING...\n\n"
+		@code = randomize(@code)
+		return @code
+	end
+
 	def name
 		@name
+	end
+
+
+	private
+
+	def randomize(code)
+		super
 	end
 
 	# def display
