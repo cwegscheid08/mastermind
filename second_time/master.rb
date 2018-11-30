@@ -1,6 +1,6 @@
 class Master < Player
 	attr_accessor :name, :code, :color_box
-	
+
 
 	def initialize(name = "Computer", code = [0,0,0,0])
 		super(name, code)
@@ -22,12 +22,16 @@ class Master < Player
 		check_spot(guess)
 	end
 
+	def computer_right_color(computer_guess)
+		computer_check_color(computer_guess)
+	end
+
 	def name
 		@name
 	end
 
-	def get_master_code(loss = false)
-		if loss 
+	def get_master_code(status)
+		if status == "game_over" 
 			return master_code
 		end
 	end
@@ -37,6 +41,13 @@ class Master < Player
 
 	def master_code
 		@code
+	end
+
+	def computer_check_color(computer_guess)
+		right = []
+		computer_guess.each { |x| @code.any?(x) ? right.push(x) : "" }
+		puts "RIGHT: #{right}"
+		right
 	end
 
 	def check_color(guess)
@@ -53,11 +64,8 @@ class Master < Player
 		i
 	end
 
-	# def randomize(code)
-	# 	code.each_with_index do |x, i|
-	# 		code[i] = @color_box[rand(6)]
-	# 	end
-	# 	code
-	# end
+	def randomize(code)
+		super
+	end
 
 end
