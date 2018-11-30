@@ -58,7 +58,7 @@ class Game
 	end
 
 	def is_loss?
-		@round == 10 && (board.four_spots?(@round) == false) ? (@round = 11; 3.times {puts "\n#{master.name.upcase} WINS!!!\n"}; puts "") : ""
+		@round == 10 && (board.four_spots?(@round) == false) ? (@round = 11; loss = true; puts "\n#{master.name.upcase}'S CODE WAS #{master.get_master_code(loss).join("--").upcase}.\n\n~~YOU LOSE~~\n\n") : ""
 	end
 
 	def is_win?(round)

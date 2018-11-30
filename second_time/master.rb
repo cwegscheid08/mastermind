@@ -16,10 +16,6 @@ class Master < Player
 		super
 	end
 
-	# def display
-	# 	super
-	# end
-
 	def has_color?(guess)
 		check_color(guess)
 	end
@@ -32,10 +28,18 @@ class Master < Player
 		@name
 	end
 
-
+	def get_master_code(loss = false)
+		if loss 
+			return master_code
+		end
+	end
 
 
 	private
+
+	def master_code
+		@code
+	end
 
 	def check_color(guess)
 		i = 0
