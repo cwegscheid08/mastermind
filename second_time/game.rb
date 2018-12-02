@@ -18,9 +18,9 @@ class Game
 			@breaker = Breaker.new(get_breaker_info)
 			run_round("two_players")
 		elsif type == "m"
+			@breaker = Breaker.new
 			x =  get_master_info
 			@master = Master.new(x[0],x[1])
-			@breaker = Breaker.new
 			run_round("master")
 		else
 			@master = Master.new
@@ -129,7 +129,7 @@ class Game
 	def get_master_info
 		puts "You're the CodeMaster. What's your name?"
 		name = gets.chomp.downcase.capitalize
-		puts "Give me your Master Code."
+		puts "Choose 4 of these colors for your Master Code: #{breaker.color_box.join("--").upcase}\nType the colors in dvided by a space\n\n"
 		code = gets.chomp.downcase.split(" ")
 		return [name, code]
 	end
