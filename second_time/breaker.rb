@@ -16,14 +16,22 @@ class Breaker < Player
 
 	def guess(round)
 		puts "Give me the guess for ROUND:#{round}\n#{@color_box.join("--").upcase}"
+		@code
 		@code = gets.chomp.downcase.split(" ")
 		return @code
 	end
 
 	def computer_guess(round)
-		puts "\nTHE COMPUTER IS THINKING...\n\n"
+
 		@code = randomize(@code)
 		return @code
+	end
+
+	def smarter_guess(colors)
+		colors.each_with_index do |x, index|
+			x != nil ? @code[index] = x : ""
+		end
+		@code
 	end
 
 	def name
@@ -36,9 +44,4 @@ class Breaker < Player
 	def randomize(code)
 		super
 	end
-
-	# def display
-	# 	super
-	# end
-
 end

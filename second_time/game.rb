@@ -1,5 +1,5 @@
 class Game
-	attr_accessor :board, :master, :breaker, :round
+	attr_accessor :board, :master, :breaker, :round, :correct_colors
 
 	require "./board.rb"
 	require "./player.rb"
@@ -10,6 +10,7 @@ class Game
 	def initialize
 		@round = 0
 		@board = Board.new
+		@correct_colors
 		type = game_style?
 		if type == "2p"
 			x = get_master_info
@@ -26,7 +27,6 @@ class Game
 			@breaker = Breaker.new(get_breaker_info)
 			run_round("breaker")
 		end
-		# run_round
 	end
 
 	def master
@@ -54,8 +54,12 @@ class Game
 				while @round <= 10
 					@round += 1
 					master_turn
+					puts "\nTHE COMPUTER IS THINKING...\n\n" 
+					sleep(1)
+					@board.display
 					is_win?(round_style)
 					is_loss?(round_style)
+
 				end
 			else
 				puts "ERROR!!!!"
@@ -67,12 +71,16 @@ class Game
 
 
 	def master_turn
-		guess = @breaker.computer_guess(@round)
-		@board.add_to_board(@board.set_row(guess, master.has_color?(guess), master.right_spot(guess)), @round)
-		@board.display
-
-		
-		correct_colors = master.computer_right_color(guess)
+		if @round <= 1
+			guess = @breaker.computer_guess(@round)
+			@board.add_to_board(@board.set_row(guess, master.has_color?(guess), master.right_spot(guess)), @round)
+			@correct_colors = master.computer_right_color(guess)
+		else
+			guess = @breaker.computer_guess(@round)
+			guess = breaker.smarter_guess(@correct_colors)
+			@correct_colors = master.computer_right_color(guess)
+			@board.add_to_board(@board.set_row(guess, master.has_color?(guess), master.right_spot(guess)), @round)
+		end
 	end
 
 	def breaker_turn
@@ -97,10 +105,13 @@ class Game
 		if board.four_spots?(@round) 
 			if round_style != "master"	
 				@round = 11
-				3.times {puts "\n#{breaker.name.upcase} WINS!!!\n\n"}
+				3.times {puts "\n\n#{breaker.name.upcase} WINS!!!\n\n"}
 			else
 				@round = 11
-				3.times { puts 10.times { print "I WIN!!!"}}
+				puts "\n\n               ~~~YOU LOSE~~~\n\n"
+				phrase = "HAHAHAHAHA"*7	
+				phrase += "!!!!!\n\n"
+				puts "\n#{phrase*3}"
 			end
 		end
 	end

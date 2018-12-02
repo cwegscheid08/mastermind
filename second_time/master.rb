@@ -4,6 +4,7 @@ class Master < Player
 
 	def initialize(name = "Computer", code = [0,0,0,0])
 		super(name, code)
+		@right = []
 	end
 
 	def is_computer?
@@ -44,10 +45,8 @@ class Master < Player
 	end
 
 	def computer_check_color(computer_guess)
-		right = []
-		computer_guess.each { |x| @code.any?(x) ? right.push(x) : "" }
-		puts "RIGHT: #{right}"
-		right
+		computer_guess.each_with_index { |x, i| (@code[i] == x ) ? @right[i] = x : "" }
+		@right
 	end
 
 	def check_color(guess)

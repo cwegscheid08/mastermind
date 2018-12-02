@@ -27,11 +27,10 @@ class Board
 
 	def display
 		print "\n\n\n\n"
-		@board.to_a.reverse.each { |x| print "#{x[0]}    "; x[1].each_pair { |y| print "#{y.join("-")}   "}; puts "" }
+		@board.to_a.each { |x| print "#{x[0]}    "; x[1].each_pair { |y| print "#{y.join("-")}   "}; puts "" }
 	end
 
 	def four_spots?(round)
-		# puts "FOUR SPOTS?: #{@board["ROUND #{round}"]["correct_spot"]}"
 		@board["ROUND #{round}"]["correct_spot"] == 4 ? true : false
 	end
 
